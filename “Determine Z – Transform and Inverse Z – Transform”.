@@ -1,0 +1,8 @@
+% Find the Z-transform
+clear all;
+close all;
+clc;
+syms n a;
+x=ztrans(a^(n));
+disp('Z-Transform :');
+disp(x);
