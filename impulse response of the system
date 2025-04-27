@@ -1,0 +1,18 @@
+% The Impulse Response of the System
+clear all;
+close all;
+clc;
+N=20;
+h=zeros(1,2*N);
+x=[zeros(1,N-1),1,zeros(1,N)];
+nh=-19:1:N;
+nx=-19:1:N;
+for i= 0:N-1
+  h(find(nh==i))=3*h(find (nh==(i-3)))+2*x(find(nx==(i-1)))+x(find (nx==(i)))-0.5*h(find(nh==(i-2)))-h(find(nh==(i-1)));
+end
+disp(h);
+stem(nh,h);
+xlabel('n');
+ylabel('h(n)');
+title('Impulse Response h(n)');
+grid on;
