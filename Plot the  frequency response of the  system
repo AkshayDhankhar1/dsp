@@ -1,0 +1,13 @@
+
+% Frequency Response of the System
+clear all;
+close all;
+clc;
+num=[1,2,4];
+den=[1,0.2,4];
+[h,w]=freqz(num,den,256);
+plot(w,20*log10(abs(h)));
+title("Frequency vs Magnitude");
+figure;
+plot(w,angle(h)*180/pi);
+title("Frequency vs Angle");
