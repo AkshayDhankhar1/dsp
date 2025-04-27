@@ -1,0 +1,29 @@
+1.  % Discrete Fourier Transform
+close all;
+clear all;
+clc;
+inp=[1,7,2,9,-1,-8,3,5];
+p=8;
+A=zeros(p,p);
+for k=0:p-1
+   for n=0:p-1
+       exprs=exp(-1i*2*pi*n*k/p);
+       A(k+1,n+1)=exprs;
+   end
+end
+X=A*(inp');
+
+2.  % Inverse Discrete Fourier Transform
+close all;
+clear all;
+clc;
+inp=[1,7,2,9,-1,-8,3,5];
+p=8;
+A=zeros(p,p);
+for n=0:p-1
+   for k=0:p-1
+       exprs=exp(1i*2*pi*n*k/p);
+       A(n+1,k+1)=exprs;
+   end
+end
+X=A*(inp')/p;
