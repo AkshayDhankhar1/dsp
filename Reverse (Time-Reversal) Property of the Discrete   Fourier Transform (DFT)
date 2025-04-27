@@ -1,0 +1,25 @@
+
+% Reverse (Time-Reversal) Property of the Discrete Fourier Transform (DFT)
+clc;
+clear all;
+close all;
+x = input('Enter the input Signal x(n): ');
+N=length(x);
+X=N_point_dft(x,N);
+y=zeros(1,N);
+Y=zeros(1,N);
+for i=0:N-1
+   y(i+1)=x(N-i);
+   Y(i+1)=X(N-i);
+end
+function [y]=N_point_dft(x,p)
+A=zeros(p,p);
+% Discrete Fourier Transform
+for k=0:p-1
+  for n=0:p-1
+      exprs=exp(-1i*2*pi*n*k/p);
+      A(k+1,n+1)=exprs;
+  end
+end
+y=A*(x');
+End
