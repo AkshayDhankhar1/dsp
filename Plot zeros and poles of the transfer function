@@ -1,0 +1,11 @@
+% zeros and poles of the transfer function
+clear all;
+close all;
+clc;
+fs=1000;
+ts=1/fs;
+num=[1,2];
+den=[1,0.2,4];
+h=tf(num,den,ts,'variable','z');
+pzmap(h);
+Zgrid;
