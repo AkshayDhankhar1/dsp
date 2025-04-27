@@ -1,0 +1,62 @@
+% circular convolution in the time domain corresponds to multiplication in the frequency domain:
+close all;
+clear all;
+clc;
+x1 = input('Enter the first sequence x1(n): ');
+x2 = input('Enter the second sequence x2(n): ');
+N = max(length(x1), length(x2));
+x1 = [x1 zeros(1,N-length(x1))];
+x2 = [x2 zeros(1,N-length(x2))];
+x3=cir_conv(x1,x2,N);
+X1=N_point_dft(x1,N);
+X2=N_point_dft(x2,N);
+ans1=N_point_dft(x3,N);
+ans2=(X1.*X2);
+% plot the Signals
+disp('Circular Convolution Result:');
+disp(x3);
+n = 0:N-1;
+subplot(3,2,1);
+stem(n,x1);
+xlabel('n -->');
+ylabel('Amplitude -->');
+title('Signal x1(n)');
+subplot(3,2,2);
+stem(n,x2);
+xlabel('n -->');
+ylabel('Amplitude -->');
+title('signal x2(n)');
+subplot(3,2,3);
+stem(n,x3);
+xlabel('n -->');
+ylabel('Amplitude -->');
+title('Circular Convolution');
+subplot(3,2,4);
+stem(n,ans1);
+xlabel('n -->');
+ylabel('Amplitude -->');
+title('DFT');
+subplot(3,2,5);
+stem(n,ans2);
+xlabel('n -->');
+ylabel('Amplitude -->');
+title('Multiplication');
+function [y]=cir_conv(x1,x2,N)
+y = zeros(1, N);
+for n = 1:N
+   for k = 1:N
+       ind = mod(n - k, N) + 1; 
+       y(n) = y(n) + x1(k) * x2(ind);
+   end
+end
+end
+function [y]=N_point_dft(x2,p)
+A=zeros(p,p);
+for k=0:p-1
+  for n=0:p-1
+      exprs=exp(-1i*2*pi*n*k/p);
+      A(k+1,n+1)=exprs;
+  end
+end
+y=A*(x2');
+End
