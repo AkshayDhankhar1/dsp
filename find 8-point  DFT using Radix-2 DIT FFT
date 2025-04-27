@@ -1,0 +1,25 @@
+%  8-point DFT using Radix-2 DIT FFT
+clear all;
+close all;
+clc;
+x=[5 1 2 9 2 6 4 1];
+N=length(x);
+stages=log2(N);
+bit=bitrevorder(0:N-1)+1;
+x=x(bit);
+X=x;
+for s=1:stages
+  m=2^s;
+  h=m/2;
+  Wm=exp(-1j*2*pi*(0:h-1)/m);
+for k=1:m:N
+for j=0:h-1
+ t=Wm(j+1)*X(k+j+h);
+ u=X(k+j);
+ X(k+j)=u+t;
+ X(k+j+h)=u-t;
+end
+end
+end
+disp('8-point DFT using Radix-2 DIT FFT:');
+disp(X);
